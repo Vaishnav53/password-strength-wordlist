@@ -67,3 +67,16 @@ Password Analysis
 Audit CSV
 
 Wordlist Generation
+
+Ethical Use
+
+This tool is built for educational and defensive purposes only.
+⚠️ Do not use it against systems you do not own or have explicit permission to test.
+
+📄 Report
+
+See: report.pdf
+ (2-page internship project report).
+
+
+---
