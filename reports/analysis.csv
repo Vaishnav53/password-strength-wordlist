@@ -1,0 +1,7 @@
+password,length,entropy_bits,zxcvbn_score,crack_time_offline_fast_hashing_1e10_per_second,class
+password,8,2.75,0,less than a second,Weak
+Password123,11,3.278,1,less than a second,Medium
+Vaishnav@2004,13,3.393,2,less than a second,Medium
+Cricket@2025,12,3.418,3,less than a second,Medium
+L3tM3!n,7,2.522,0,less than a second,Weak
+CorrectHorseBatteryStaple!,26,3.624,4,9 months,Strong
