@@ -83,27 +83,27 @@ def cap_size(iterable, max_items):
 # ---------- Analyze ----------
 def analyze_password(pw: str, user_inputs: list[str]):
     res = {
-        "password": pw,
-        "length": len(pw),
-        "entropy_bits": round(shannon_entropy(pw), 3),
-        "zxcvbn_score": None,
-        "crack_time_offline_fast_hashing_1e10_per_second": None,
-        "feedback": [],
+        "Password": pw,
+        "Length": len(pw),
+        "Entropy_Bits": round(shannon_entropy(pw), 3),
+        "ZXCVBN_Score": None,
+        "Crack_Time_Offline_Hashing_per/sec": None,
+        "Feedback": [],
         "class": None
     }
     if HAS_ZXCVBN:
         zx = zxcvbn(pw, user_inputs=user_inputs or [])
-        res["zxcvbn_score"] = zx.get("score")
+        res["ZXCVBN_Score"] = zx.get("score")
         times = zx.get("crack_times_display", {})
-        res["crack_time_offline_fast_hashing_1e10_per_second"] = times.get("offline_fast_hashing_1e10_per_second")
+        res["Crack_Time_Offline_Hashing_per/sec"] = times.get("offline_fast_hashing_1e10_per_second")
         fb = zx.get("feedback", {})
         for k in ("warning","suggestions"):
             v = fb.get(k)
             if isinstance(v, list):
-                res["feedback"].extend(v)
+                res["Feedback"].extend(v)
             elif isinstance(v, str) and v:
-                res["feedback"].append(v)
-    res["class"] = classify_length_entropy(pw, res["entropy_bits"])
+                res["Feedback"].append(v)
+    res["class"] = classify_length_entropy(pw, res["Entropy_Bits"])
     return res
 
 # ---------- Wordlist ----------
@@ -182,12 +182,12 @@ def main():
         import csv
         with open(args.infile, "r", encoding="utf-8") as f, open(args.out, "w", newline="", encoding="utf-8") as o:
             w = csv.writer(o)
-            w.writerow(["password","length","entropy_bits","zxcvbn_score","crack_time_offline_fast_hashing_1e10_per_second","class"])
+            w.writerow(["Password","Length","Entropy_Bits","ZXCVBN_Score","Crack_Time_Offline_Hashing_per/sec","class"])
             for line in f:
                 pw = line.rstrip("\n")
                 if not pw: continue
                 res = analyze_password(pw, args.inputs)
-                w.writerow([res["password"], res["length"], res["entropy_bits"], res["zxcvbn_score"], res["crack_time_offline_fast_hashing_1e10_per_second"], res["class"]])
+                w.writerow([res["Password"], res["Length"], res["Entropy_Bits"], res["ZXCVBN_Score"], res["Crack_Time_Offline_Hashing_per/sec"], res["class"]])
         print(f"[+] Wrote {args.out}")
 
     elif args.cmd == "wordlist":
